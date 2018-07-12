@@ -52,20 +52,33 @@ def make_melon_types():
     yellow_watermelon.add_pairing('ice cream')
     all_melon_types.append(yellow_watermelon)
 
-    print(all_melon_types)
     return all_melon_types
 
-make_melon_types()
+
 
 def print_pairing_info(melon_types):
     """Prints information about each melon type's pairings."""
+    for melon in melon_types:
+        print("{} pairs with".format(melon.name))
+        for pairing in melon.pairings:
+            print('- {}'.format(pairing))
+        print()
 
-    # Fill in the rest
+    return
 
 def make_melon_type_lookup(melon_types):
     """Takes a list of MelonTypes and returns a dictionary of melon type by code."""
+    # looping for code
+    melon_type_dict = {}
 
-    # Fill in the rest
+    for melon in melon_types:
+        melon_type_dict[melon.code] = melon
+
+    return melon_type_dict
+    
+
+# print_pairing_info(make_melon_types())
+print(make_melon_type_lookup(make_melon_types()))
 
 ############
 # Part 2   #
@@ -74,8 +87,21 @@ def make_melon_type_lookup(melon_types):
 class Melon(object):
     """A melon in a melon harvest."""
 
-    # Fill in the rest
     # Needs __init__ and is_sellable methods
+    def __init__(self, type_melon, shape_rating, color_rating, harvetsted_from, 
+                 harvetsted_by):
+        self.type_melon = type_melon
+        self.shape_rating = shape_rating
+        self.color_rating = color_rating
+        self.harvetsted_from = harvetsted_from
+        self.harvetsted_by = harvetsted_by
+
+    def is_sellable(self):
+        """Sellable if color and shape rating > 5 and didn't come from field 3"""
+        if self.shape_rating > 5 and self.color_rating > 5 and self.harvetsted_from != 3:
+            return True
+        return False
+
 
 def make_melons(melon_types):
     """Returns a list of Melon objects."""
